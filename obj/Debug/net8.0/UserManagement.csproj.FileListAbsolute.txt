@@ -12,3 +12,4 @@ C:\Users\Intern\source\repos\UserManagement\UserManagement\obj\Debug\net8.0\refi
 C:\Users\Intern\source\repos\UserManagement\UserManagement\obj\Debug\net8.0\UserManagement.pdb
 C:\Users\Intern\source\repos\UserManagement\UserManagement\obj\Debug\net8.0\UserManagement.genruntimeconfig.cache
 C:\Users\Intern\source\repos\UserManagement\UserManagement\obj\Debug\net8.0\ref\UserManagement.dll
+C:\Users\Intern\source\repos\UserManagement\UserManagement\obj\Debug\net8.0\UserManagement.sourcelink.json
