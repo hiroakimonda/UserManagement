@@ -5,14 +5,12 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-
-
 namespace UserManagement
 {
     internal class Program
     {
         static List<User> users = new List<User>();
-
+        
         static async Task LoadUsersFromServer()
         {
             using (var client = new HttpClient())
@@ -70,10 +68,12 @@ namespace UserManagement
                 Console.Write("番号を選択してください: ");
                 string choice = Console.ReadLine();
 
-                
+
+
 
                 switch (choice)
                 {
+
                     case "1":
                         await LoadUsersFromServer();
                         ShowUsers();
@@ -117,6 +117,8 @@ namespace UserManagement
                 }
             }
         }
+
+
         //一覧
         static void ShowUsers()
         {
@@ -143,7 +145,7 @@ namespace UserManagement
             Console.WriteLine("\n続けるには何かキーを押してください...");
             Console.ReadKey();
         }
-       
+
         // 登録機能
         static void RegisterUser()
         {
@@ -183,7 +185,7 @@ namespace UserManagement
             Console.Write("更新するユーザーのIDを入力してください: ");
             string targetId = Console.ReadLine();
 
-         // 該当ユーザーを検索
+            // 該当ユーザーを検索
             User user = users.Find(u => u.id == targetId);
             if (user == null)
             {
@@ -327,6 +329,5 @@ namespace UserManagement
             Console.WriteLine("CSVファイルから読み込みました。");
             Console.ReadKey();
         }
-
     }
 }
