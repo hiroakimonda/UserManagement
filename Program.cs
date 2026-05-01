@@ -68,20 +68,56 @@ namespace UserManagement
                 Console.Write("番号を選択してください: ");
                 string choice = Console.ReadLine();
 
-
-
-
                 switch (choice)
                 {
 
+
                     case "1":
-                        await LoadUsersFromServer();
-                        ShowUsers();
+                        Console.Clear();
+                        Console.WriteLine("=== 登録されているユーザー一覧 ===\n");
+
+                        foreach (var u in users)   // ← ローカルのユーザーリスト
+                        {
+                            Console.WriteLine($"{u.id}\t{u.familyName}\t{u.name}");
+                        }
+
+                        Console.WriteLine("\n検索するIDを入力してください（5桁）: ");
+                        string id = Console.ReadLine();
+
+                        var list = await ApiClient.GetUserListAsync(id);
+
+                        Console.Clear();
+                        Console.WriteLine("=== 検索結果 ===\n");
+
+                        if (list.Count == 0)
+                        {
+                            Console.WriteLine("該当データがありません。");
+                        }
+                        else
+                        {
+                            foreach (var u in list)
+                            {
+                                Console.WriteLine($"ID: {u.id}");
+                                Console.WriteLine($"姓: {u.familyName}");
+                                Console.WriteLine($"名: {u.name}");
+                                Console.WriteLine($"性別: {u.sex}");
+                                Console.WriteLine($"年齢: {u.age}");
+                                Console.WriteLine($"生年月日: {u.birthday}");
+                                Console.WriteLine($"住所: {u.address}");
+                                Console.WriteLine($"備考: {u.note}");
+                                Console.WriteLine("-------------------------");
+                            }
+                        }
+
+                        Console.ReadKey();
                         break;
 
 
+
+
+
                     case "2":
-                        RegisterUser();
+                        await RegisterUserAsync();
                         break;
 
                     case "3":
@@ -147,14 +183,14 @@ namespace UserManagement
         }
 
         // 登録機能
-        static void RegisterUser()
+        static async Task RegisterUserAsync()
         {
             Console.Clear();
-            Console.WriteLine("=== ユーザー登録 ===");
+            Console.WriteLine("=== ユーザー登録（API） ===");
 
             User user = new User();
 
-            Console.Write("ID: ");
+            Console.Write("ID（5桁）: ");
             user.id = Console.ReadLine();
 
             Console.Write("姓: ");
@@ -163,8 +199,15 @@ namespace UserManagement
             Console.Write("名: ");
             user.name = Console.ReadLine();
 
+            Console.Write("性別（1:男 2:女）: ");
+            user.sex = int.Parse(Console.ReadLine());
+
+
             Console.Write("年齢: ");
             user.age = int.Parse(Console.ReadLine());
+
+            Console.Write("生年月日（yyyyMMdd）: ");
+            user.birthday = Console.ReadLine();
 
             Console.Write("住所: ");
             user.address = Console.ReadLine();
@@ -172,11 +215,28 @@ namespace UserManagement
             Console.Write("備考: ");
             user.note = Console.ReadLine();
 
-            users.Add(user);
 
-            Console.WriteLine("\n登録が完了しました。");
+
+            // API 呼び出し
+            string resultCd = await ApiClient.AddUserAsync(user);
+
+            if (resultCd == "0000")
+            {
+                Console.WriteLine("\n登録成功！");
+            }
+            else if (resultCd == "0102")
+            {
+                Console.WriteLine("\nエラー：ID重複");
+            }
+            else
+            {
+                Console.WriteLine($"\nエラー：resultCd = {resultCd}");
+            }
+
             Console.ReadKey();
         }
+
+
         //更新・編集
         static void EditUser()
         {

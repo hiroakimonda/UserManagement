@@ -5,7 +5,7 @@
     public string name { get; set; }
     public int sex { get; set; }
     public int age { get; set; }
-    public int birthday { get; set; }
+    public string birthday { get; set; }   // ← 修正ポイント
     public string address { get; set; }
     public string note { get; set; }
 }
