@@ -1,5 +1,10 @@
-﻿public class ApiResponse
+﻿
+
+namespace UserManagement
 {
-    public string resultCd { get; set; }
-    public List<User> resultData { get; set; }
+    public class ApiResponse
+    {
+        public string resultCd { get; set; }
+        public List<User> resultData { get; set; }
+    }
 }

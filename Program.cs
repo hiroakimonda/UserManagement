@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace UserManagement
 {
-    internal class Program
+    public  class Program
     {
         static List<User> users = new List<User>();
         
-        static async Task LoadUsersFromServer()
+        public static async Task LoadUsersFromServer()
         {
             using (var client = new HttpClient())
             {
@@ -120,7 +120,7 @@ namespace UserManagement
 
 
         //一覧
-        static void ShowUsers()
+        public static void ShowUsers()
         {
             Console.Clear();
             Console.WriteLine("=== ユーザー一覧 ===");
